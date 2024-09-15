@@ -4,7 +4,7 @@ const config = require('../../config');
 test('Check the response status code', async () => {
 let actualStatus;
 try {
-		const response = await fetch(`${config.API_URL}/api/v1/orders/6/complete`, {
+		const response = await fetch(`${config.API_URL}/api/v1/orders/4/complete`, {
 			method: 'PUT',
 			headers: {
 			'Content-Type': 'application/json',
@@ -22,19 +22,20 @@ expect(actualStatus).toBe(200);
 
 
 test('Check the response body contains true value of the order complete', async () => {
-let response ;    
+let makeOrderResult;
+let orderStatus;
 try {
-		response = await fetch(`${config.API_URL}/api/v1/orders/6/complete`, {
+		response = await fetch(`${config.API_URL}/api/v1/orders/4/complete`, {
 			method: 'PUT',
 			headers: {
 			'Content-Type': 'application/json',
             'Authorization': 'Bearer jknnFApafP4awfAIFfafam2fma'
 			},
 		});
+		makeOrderResult = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
-    const makeOrderResult = await response.json();
-    const orderStatus = makeOrderResult['ok'];
+    orderStatus = makeOrderResult['ok'];
     expect(orderStatus).toBeTruthy();
 });

@@ -14,27 +14,28 @@ test('Check the response status code', async () => {
 
 
 test('Check the response body contains name of the new kit', async () => {
-	let response;
+	let newKitData;
+	let newKitName;
 	try {
 		response = await fetch(`${config.API_URL}/api/v1/kits/search?name=My%20new%20kito`);
+		newKitData = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
-    const newKitData = await response.json();
-    const newKitName = "My new kito";
+    newKitName = "My new kito";
     expect(newKitName).toEqual(newKitData["name"]);
 });
 
 
 test('Check the response body contains ID of the new kit', async () => {
-	let response;
+	let newKitData;
+	let newKitId
 	try {
 		response = await fetch(`${config.API_URL}/api/v1/kits/search?name=My%20new%20kito`);
+		newKitData = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
-    const newKitData = await response.json();
     newKitId = newKitData['id'];
     expect(newKitId).toBeDefined();
-    console.log(newKitId);
 });

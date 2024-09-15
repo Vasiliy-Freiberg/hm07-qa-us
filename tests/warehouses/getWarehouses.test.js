@@ -14,13 +14,13 @@ test('Check the response status code', async () => {
 
 
 test('Check the response body contains name of the warehouses', async () => {
-	let response;
+	let warehousesList;
 	try {
-		response = await fetch(`${config.API_URL}/api/v1/warehouses`);
+		const response = await fetch(`${config.API_URL}/api/v1/warehouses`);
+		warehousesList = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
-    const warehousesList = await response.json();
-    const warehousesName = "Everything You Need";
+    let warehousesName = "Everything You Need";
     expect(warehousesName).toEqual(warehousesList[0]["name"]);
 });

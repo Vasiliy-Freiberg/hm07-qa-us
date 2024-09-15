@@ -24,7 +24,8 @@ test('Check the response status code', async () => {
 
 
 test('Check the response body contains "producstList" equals Null', async () => {
-	let response;
+	let newKitData;
+	let productsListValue;
     try {
 		response = await fetch(`${config.API_URL}/api/v1/kits`,{
 			method: 'POST',
@@ -33,10 +34,10 @@ test('Check the response body contains "producstList" equals Null', async () => 
 			},
 			body: JSON.stringify(requestBody)
 		});
+		newKitData = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
-    const newKitData = await response.json();
-    const productsListValue = newKitData['productsList'];
+    productsListValue = newKitData['productsList'];
     expect(productsListValue).toBeNull();
 });

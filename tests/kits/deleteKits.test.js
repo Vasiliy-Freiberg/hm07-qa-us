@@ -7,24 +7,25 @@ test('Check the response status code', async () => {
 			const response = await fetch(`${config.API_URL}/api/v1/kits/7`, {
 				method: 'DELETE',
 			});
-	actualStatus = response.status;
+			actualStatus = response.status;
 		} catch (error) {
 			console.error(error);
 		}
-	expect(actualStatus).toBe(200);
+	expect(actualStatus).toBe(200)
 	});
 
 
 	test('Check the response body contains true value of the kit delete', async () => {
-		let response ;    
+		let deleteKitResult;
+		let deleteKitStatus;
 		try {
 				response = await fetch(`${config.API_URL}/api/v1/kits/7`, {
 					method: 'DELETE',
 				});
+				deleteKitResult = await response.json();
 			} catch (error) {
 				console.error(error);
 			}
-			const deleteKitResult = await response.json();
-			const deleteKitStatus = deleteKitResult['ok'];
+			deleteKitStatus = deleteKitResult['ok'];
 			expect(deleteKitStatus).toBeTruthy();
 		});

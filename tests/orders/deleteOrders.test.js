@@ -4,7 +4,7 @@ const config = require('../../config');
 test('Check the response status code', async () => {
 	let actualStatus;
 		try {
-			const response = await fetch(`${config.API_URL}/api/v1/orders/6`, {
+			const response = await fetch(`${config.API_URL}/api/v1/orders/4`, {
 				method: 'DELETE',
 			});
 	actualStatus = response.status;
@@ -16,15 +16,16 @@ test('Check the response status code', async () => {
 
 
 	test('Check the response body contains true value of the order delete', async () => {
-		let response ;    
+		let deleteOrderResult;
+		let deleteOrderStatus;
 		try {
-				response = await fetch(`${config.API_URL}/api/v1/orders/6`, {
+				response = await fetch(`${config.API_URL}/api/v1/orders/4`, {
 					method: 'DELETE',
 				});
+				deleteOrderResult = await response.json();
 			} catch (error) {
 				console.error(error);
 			}
-			const deleteOrderResult = await response.json();
-			const deleteOrderStatus = deleteOrderResult['ok'];
+			deleteOrderStatus = deleteOrderResult['ok'];
 			expect(deleteOrderStatus).toBeTruthy();
 		});

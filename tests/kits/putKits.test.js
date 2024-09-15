@@ -32,7 +32,8 @@ expect(actualStatus).toBe(200);
 
 
 test('Check the response body contains true value of the kit edit', async () => {
-let response ;    
+let editKitResult;
+let editStatus;
 try {
 		response = await fetch(`${config.API_URL}/api/v1/kits/7`, {
 			method: 'PUT',
@@ -41,10 +42,10 @@ try {
 			},
 			body: JSON.stringify(requestBody)
 		});
+		editKitResult = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
-    const editKitResult = await response.json();
-    const editStatus = editKitResult['ok'];
+    editStatus = editKitResult['ok'];
     expect(editStatus).toBeTruthy();
 });

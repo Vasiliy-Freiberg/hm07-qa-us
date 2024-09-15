@@ -28,7 +28,8 @@ test('Check the response status code', async () => {
 
 
 test('Check the response body contains "deliveryTime" equals the current time', async () => {
-	let response;
+	let newOrderData;
+	let deliveryTime;
     try {
 		response = await fetch(`${config.API_URL}/api/v1/orders`,{
 			method: 'POST',
@@ -37,12 +38,10 @@ test('Check the response body contains "deliveryTime" equals the current time', 
 			},
 			body: JSON.stringify(requestBody)
 		});
+		newOrderData = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
-    const newOrderData = await response.json();
-    const deliveryTime = newOrderData["deliveryTime"];
+    deliveryTime = newOrderData["deliveryTime"];
     expect(deliveryTime).toMatch("20~25");
-    const newCartId = newOrderData["id"];
-    console.log(newCartId);
 });
